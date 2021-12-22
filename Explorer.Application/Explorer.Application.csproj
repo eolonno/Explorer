@@ -5,6 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="FluentValidation" Version="10.3.6" />
     <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
@@ -23,6 +25,7 @@
     <Folder Include="Commands\ForFile\ChangeFileContent\" />
     <Folder Include="Commands\ForFile\AppendContentToFile\" />
     <Folder Include="Queries\ForFile\GetFileContent\" />
+    <Folder Include="Mappings\" />
   </ItemGroup>
 
 </Project>

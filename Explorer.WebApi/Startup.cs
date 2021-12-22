@@ -1,5 +1,8 @@
 namespace Explorer.WebApi
 {
+    using System.Reflection;
+    using Explorer.Application;
+    using Explorer.Application.Mappings;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
@@ -16,9 +19,22 @@ namespace Explorer.WebApi
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(config =>
+                config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly())));
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", policy =>
+                {
+                    policy.AllowAnyHeader();
+                    policy.AllowAnyMethod();
+                    policy.AllowAnyOrigin();
+                });
+            });
+
+            services.AddApplication();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -26,7 +42,6 @@ namespace Explorer.WebApi
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -37,11 +52,9 @@ namespace Explorer.WebApi
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthorization();
-
+            app.UseCors("AllowAll");
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

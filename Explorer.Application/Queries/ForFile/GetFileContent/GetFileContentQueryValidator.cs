@@ -1,8 +1,9 @@
-﻿namespace Explorer.Application.Queries.GetFileContent
+﻿namespace Explorer.Application.Queries.ForFile.GetFileContent
 {
     using FluentValidation;
 
-    public class GetFileContentQueryValidator : AbstractValidator<GetFileContentQuery>
+    public class GetFileContentQueryValidator
+        : AbstractValidator<GetFileContentQuery>
     {
         public GetFileContentQueryValidator()
         {

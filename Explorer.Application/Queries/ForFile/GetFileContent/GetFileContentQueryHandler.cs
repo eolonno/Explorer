@@ -1,4 +1,4 @@
-﻿namespace Explorer.Application.Queries.GetFileContent
+﻿namespace Explorer.Application.Queries.ForFile.GetFileContent
 {
     using System.IO;
     using System.Linq;

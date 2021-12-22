@@ -1,8 +1,9 @@
-﻿namespace Explorer.Application.Queries.GetDirectoryContent
+﻿namespace Explorer.Application.Queries.ForDirectory.GetDirectoryContent
 {
     using FluentValidation;
 
-    public class GetDirectoryContentQueryValidator : AbstractValidator<GetDirectoryContentQuery>
+    public class GetDirectoryContentQueryValidator
+        : AbstractValidator<GetDirectoryContentQuery>
     {
         public GetDirectoryContentQueryValidator()
         {

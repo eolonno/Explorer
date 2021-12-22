@@ -1,9 +1,9 @@
-﻿namespace Explorer.Application.Queries.GetDirectoryContent
+﻿namespace Explorer.Application.Queries.ForDirectory.GetDirectoryContent
 {
     using MediatR;
 
     public class GetDirectoryContentQuery : IRequest<GetDirectoryContentQueryVm>
     {
-        public string Path;
+        public string Path { get; set; }
     }
 }

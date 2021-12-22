@@ -1,4 +1,4 @@
-﻿namespace Explorer.Application.Queries.GetDirectoryContent
+﻿namespace Explorer.Application.Queries.ForDirectory.GetDirectoryContent
 {
     using System.IO;
     using System.Linq;

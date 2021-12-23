@@ -1,4 +1,6 @@
-﻿namespace Explorer.Application.Queries.ForFile.GetFileContent
+﻿using System;
+
+namespace Explorer.Application.Queries.ForFile.GetFileContent
 {
     using System.IO;
     using System.Linq;
@@ -12,9 +14,9 @@
         public async Task<GetFileContentQueryVm> Handle(
             GetFileContentQuery request, CancellationToken cancellationToken)
         {
+            var pathToFile = $@"{request.Path}\{request.FileName}";
             var fileContent = await File.ReadAllTextAsync(
-                    request.Path.Concat(request.FileName).ToString(),
-                    cancellationToken);
+                    pathToFile, cancellationToken);
 
             return new GetFileContentQueryVm { FileContent = fileContent };
         }

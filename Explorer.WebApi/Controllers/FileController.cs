@@ -20,9 +20,16 @@
             this.mapper = mapper;
 
         [HttpGet]
+        [Route("{path}/{fileName}")]
         public async Task<ActionResult<GetFileContentQueryVm>> Get(
-            [FromBody] GetFileContentQuery query)
+            [FromRoute] string path, [FromRoute] string fileName)
         {
+            var query = new GetFileContentQuery
+            {
+                FileName = fileName,
+                Path = path,
+            };
+
             var vm = await this.Mediator.Send(query);
 
             return this.Ok(vm);

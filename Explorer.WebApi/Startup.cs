@@ -24,16 +24,6 @@ namespace Explorer.WebApi
             services.AddAutoMapper(config =>
                 config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly())));
 
-            services.AddCors(options =>
-            {
-                options.AddPolicy("AllowAll", policy =>
-                {
-                    policy.AllowAnyHeader();
-                    policy.AllowAnyMethod();
-                    policy.AllowAnyOrigin();
-                });
-            });
-
             services.AddApplication();
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -54,7 +44,7 @@ namespace Explorer.WebApi
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();
-            app.UseCors("AllowAll");
+            app.UseCors(builder => builder.AllowAnyOrigin());
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

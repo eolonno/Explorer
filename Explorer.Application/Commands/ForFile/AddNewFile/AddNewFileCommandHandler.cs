@@ -20,9 +20,8 @@
             }
             else
             {
-                await File
-                    .CreateText(filePath)
-                    .WriteLineAsync(request.ContentToAdd);
+                await using var stream = File.CreateText(filePath);
+                await stream.WriteLineAsync(request.ContentToAdd);
             }
 
             return Unit.Value;

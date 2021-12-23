@@ -11,12 +11,15 @@
         public async Task<Unit> Handle(
             AppendContentToFileCommand request, CancellationToken cancellationToken)
         {
-            var filePath = $@"{request.Path}\{request.FileName}";
+            var pathToFile = $@"{request.Path}\{request.FileName}";
+
+            if (!File.Exists(pathToFile))
+            {
+                throw new FileNotFoundException();
+            }
 
             await File.AppendAllTextAsync(
-                filePath,
-                request.ContentToAdd,
-                cancellationToken);
+                pathToFile, request.ContentToAdd, cancellationToken);
 
             return Unit.Value;
         }

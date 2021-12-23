@@ -10,9 +10,11 @@
     public class DirectoryController : BaseController
     {
         [HttpGet]
+        [Route("{path}")]
         public async Task<ActionResult<GetDirectoryContentQueryVm>> Get(
-            [FromBody] GetDirectoryContentQuery query)
+            [FromRoute] string path)
         {
+            var query = new GetDirectoryContentQuery { Path = path };
             var vm = await this.Mediator.Send(query);
 
             return this.Ok(vm);

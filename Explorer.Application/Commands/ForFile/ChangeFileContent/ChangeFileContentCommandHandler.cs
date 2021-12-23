@@ -11,9 +11,15 @@
         public async Task<Unit> Handle(
             ChangeFileContentCommand request, CancellationToken cancellationToken)
         {
-            await File.CreateText(
-                $@"{request.Path}\{request.FileName}")
-                .WriteLineAsync(request.NewContent);
+            var pathToFile = $@"{request.Path}\{request.FileName}";
+
+            if (!File.Exists(pathToFile))
+            {
+                throw new FileNotFoundException();
+            }
+
+            await File.WriteAllTextAsync(
+                pathToFile, request.NewContent, cancellationToken);
 
             return Unit.Value;
         }

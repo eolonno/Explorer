@@ -11,8 +11,10 @@
         public async Task<Unit> Handle(
             DeleteFileCommand request, CancellationToken cancellationToken)
         {
+            var pathToFile = $@"{request.Path}\{request.FileName}";
+
             await Task.Run(
-                () => File.Delete($@"{request.Path}\{request.FileName}"), cancellationToken);
+                () => File.Delete(pathToFile), cancellationToken);
 
             return Unit.Value;
         }

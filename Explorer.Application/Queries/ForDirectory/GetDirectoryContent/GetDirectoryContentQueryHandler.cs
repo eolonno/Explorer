@@ -12,6 +12,11 @@
         public async Task<GetDirectoryContentQueryVm> Handle(
             GetDirectoryContentQuery request, CancellationToken cancellationToken)
         {
+            if (!Directory.Exists(request.Path))
+            {
+                throw new DirectoryNotFoundException();
+            }
+
             var directoryContent = await Task.Run(
                 () => Directory
                 .GetDirectories(request.Path)

@@ -13,6 +13,11 @@
         {
             var filePath = $@"{request.Path}\{request.FileName}";
 
+            if (!Directory.Exists(request.Path))
+            {
+                throw new DirectoryNotFoundException();
+            }
+
             if (string.IsNullOrEmpty(request.ContentToAdd))
             {
                 await Task.Run(

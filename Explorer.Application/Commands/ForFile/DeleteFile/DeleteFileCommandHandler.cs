@@ -13,6 +13,11 @@
         {
             var pathToFile = $@"{request.Path}\{request.FileName}";
 
+            if (!File.Exists(pathToFile))
+            {
+                throw new FileNotFoundException();
+            }
+
             await Task.Run(
                 () => File.Delete(pathToFile), cancellationToken);
 

@@ -1,7 +1,6 @@
-﻿using System;
-
-namespace Explorer.Application.Queries.ForFile.GetFileContent
+﻿namespace Explorer.Application.Queries.ForFile.GetFileContent
 {
+    using System;
     using System.IO;
     using System.Linq;
     using System.Threading;
@@ -15,6 +14,12 @@ namespace Explorer.Application.Queries.ForFile.GetFileContent
             GetFileContentQuery request, CancellationToken cancellationToken)
         {
             var pathToFile = $@"{request.Path}\{request.FileName}";
+
+            if (!File.Exists(pathToFile))
+            {
+                throw new FileNotFoundException();
+            }
+
             var fileContent = await File.ReadAllTextAsync(
                     pathToFile, cancellationToken);
 

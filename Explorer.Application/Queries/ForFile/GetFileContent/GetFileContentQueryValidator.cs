@@ -7,8 +7,10 @@
     {
         public GetFileContentQueryValidator()
         {
-            this.RuleFor(fileInfo => fileInfo.FileName).NotEmpty();
-            this.RuleFor(fileInfo => fileInfo.Path).NotEmpty();
+            this.RuleFor(fileInfo => fileInfo.Path)
+                .Matches(@":\\\w+|\W+\w+|W+");
+            this.RuleFor(fileInfo => fileInfo.FileName)
+                .Matches(@"\.\w+\z");
         }
     }
 }

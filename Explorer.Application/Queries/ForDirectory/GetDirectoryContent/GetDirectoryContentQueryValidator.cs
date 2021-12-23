@@ -7,7 +7,8 @@
     {
         public GetDirectoryContentQueryValidator()
         {
-            this.RuleFor(directoryInfo => directoryInfo.Path).NotEmpty();
+            this.RuleFor(directoryInfo => directoryInfo.Path)
+                .Matches(@":\\\w+|\W+\w+|W+");
         }
     }
 }

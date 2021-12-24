@@ -11,8 +11,11 @@
         public async Task<Unit> Handle(
             DeleteDirectoryCommand request, CancellationToken cancellationToken)
         {
+            var pathToDirectoryToDelete =
+                Properties.Resources.BaseDirectory + request.DirectoryToDelete.Replace("%2F", @"\");
+
             await Task.Run(
-                () => Directory.Delete(request.DirectoryToDelete), cancellationToken);
+                () => Directory.Delete(pathToDirectoryToDelete), cancellationToken);
 
             return Unit.Value;
         }

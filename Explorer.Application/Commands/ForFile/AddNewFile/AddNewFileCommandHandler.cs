@@ -11,9 +11,16 @@
         public async Task<Unit> Handle(
             AddNewFileCommand request, CancellationToken cancellationToken)
         {
-            var filePath = $@"{request.Path}\{request.FileName}";
+            var path =
+                Properties.Resources.BaseDirectory
+                + request.Path.Replace("%2F", @"\");
 
-            if (!Directory.Exists(request.Path))
+            var pathToFile =
+                path
+                + @"\"
+                + request.FileName;
+
+            if (!Directory.Exists(path))
             {
                 throw new DirectoryNotFoundException();
             }
@@ -21,11 +28,11 @@
             if (string.IsNullOrEmpty(request.ContentToAdd))
             {
                 await Task.Run(
-                    () => File.Create(filePath), cancellationToken);
+                    () => File.Create(pathToFile), cancellationToken);
             }
             else
             {
-                await using var stream = File.CreateText(filePath);
+                await using var stream = File.CreateText(pathToFile);
                 await stream.WriteLineAsync(request.ContentToAdd);
             }
 

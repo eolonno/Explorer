@@ -10,6 +10,15 @@
     public class DirectoryController : BaseController
     {
         [HttpGet]
+        public async Task<ActionResult<GetDirectoryContentQueryVm>> Get()
+        {
+            var query = new GetDirectoryContentQuery { Path = string.Empty };
+            var vm = await this.Mediator.Send(query);
+
+            return this.Ok(vm);
+        }
+
+        [HttpGet]
         [Route("{path}")]
         public async Task<ActionResult<GetDirectoryContentQueryVm>> Get(
             [FromRoute] string path)
@@ -21,18 +30,30 @@
         }
 
         [HttpPost]
+        [Route("{path}")]
         public async Task<ActionResult> Create(
-            [FromBody] AddNewDirectoryCommand command)
+            [FromRoute] string path)
         {
+            var command = new AddNewDirectoryCommand
+            {
+                DirectoryToAddTo = path,
+            };
+
             await this.Mediator.Send(command);
 
             return this.Ok();
         }
 
         [HttpDelete]
+        [Route("{path}")]
         public async Task<ActionResult> Delete(
-            [FromBody] DeleteDirectoryCommand command)
+            [FromRoute] string path)
         {
+            var command = new DeleteDirectoryCommand
+            {
+                DirectoryToDelete = path,
+            };
+
             await this.Mediator.Send(command);
 
             return this.Ok();

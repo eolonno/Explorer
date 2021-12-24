@@ -1,8 +1,6 @@
 ﻿namespace Explorer.Application.Queries.ForFile.GetFileContent
 {
-    using System;
     using System.IO;
-    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
@@ -13,15 +11,19 @@
         public async Task<GetFileContentQueryVm> Handle(
             GetFileContentQuery request, CancellationToken cancellationToken)
         {
-            var pathToFile = $@"{request.Path}\{request.FileName}";
+            var path =
+                Properties.Resources.BaseDirectory
+                + request.Path.Replace("%2F", @"\")
+                + @"\"
+                + request.FileName;
 
-            if (!File.Exists(pathToFile))
+            if (!File.Exists(path))
             {
                 throw new FileNotFoundException();
             }
 
             var fileContent = await File.ReadAllTextAsync(
-                    pathToFile, cancellationToken);
+                path, cancellationToken);
 
             return new GetFileContentQueryVm { FileContent = fileContent };
         }

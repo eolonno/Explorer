@@ -11,15 +11,19 @@
         public async Task<Unit> Handle(
             DeleteFileCommand request, CancellationToken cancellationToken)
         {
-            var pathToFile = $@"{request.Path}\{request.FileName}";
+            var path =
+                Properties.Resources.BaseDirectory
+                + request.Path.Replace("%2F", @"\")
+                + @"\"
+                + request.FileName;
 
-            if (!File.Exists(pathToFile))
+            if (!File.Exists(path))
             {
                 throw new FileNotFoundException();
             }
 
             await Task.Run(
-                () => File.Delete(pathToFile), cancellationToken);
+                () => File.Delete(path), cancellationToken);
 
             return Unit.Value;
         }

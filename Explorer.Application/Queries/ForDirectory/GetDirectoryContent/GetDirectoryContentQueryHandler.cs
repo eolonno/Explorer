@@ -12,17 +12,21 @@
         public async Task<GetDirectoryContentQueryVm> Handle(
             GetDirectoryContentQuery request, CancellationToken cancellationToken)
         {
-            if (!Directory.Exists(request.Path))
+            var path =
+                Properties.Resources.BaseDirectory + request.Path.Replace("%2F", @"\");
+
+            if (!Directory.Exists(path))
             {
                 throw new DirectoryNotFoundException();
             }
 
             var directoryContent = await Task.Run(
                 () => Directory
-                .GetDirectories(request.Path)
-                .Union(Directory.GetFiles(request.Path))
-                .OrderBy(x => x)
-                .ToList(), cancellationToken);
+                        .GetDirectories(path)
+                        .Union(Directory.GetFiles(path))
+                        .OrderBy(x => x)
+                        .Select(s => new string(s.Skip(path.Length).ToArray()))
+                        .ToList(), cancellationToken);
 
             return new GetDirectoryContentQueryVm { DirectoryContent = directoryContent };
         }

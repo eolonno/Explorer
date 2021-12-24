@@ -8,9 +8,9 @@
         public AddNewFileCommandValidator()
         {
             this.RuleFor(newFileInfo => newFileInfo.Path)
-                .Matches(@":\\\w+|\W+\w+|W+");
+                .Matches(@"[w+]+|[\w+/\w+]+\w");
             this.RuleFor(newFileInfo => newFileInfo.FileName)
-                .Matches(@"\.\w+\z");
+                .Matches(@"\w*\.\w+");
         }
     }
 }

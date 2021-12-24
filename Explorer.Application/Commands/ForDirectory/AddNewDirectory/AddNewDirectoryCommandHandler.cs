@@ -11,8 +11,11 @@
         public async Task<Unit> Handle(
             AddNewDirectoryCommand request, CancellationToken cancellationToken)
         {
+            var pathToNewDirectory =
+                Properties.Resources.BaseDirectory + request.DirectoryToAddTo.Replace("%2F", @"\");
+
             await Task.Run(
-                () => Directory.CreateDirectory(request.DirectoryToAddTo), cancellationToken);
+                () => Directory.CreateDirectory(pathToNewDirectory), cancellationToken);
 
             return Unit.Value;
         }

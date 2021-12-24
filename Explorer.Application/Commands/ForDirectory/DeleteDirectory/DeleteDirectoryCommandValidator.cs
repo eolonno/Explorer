@@ -8,7 +8,7 @@
         public DeleteDirectoryCommandValidator()
         {
             this.RuleFor(directory => directory.DirectoryToDelete)
-                .Matches(@":\\\w+|\W+\w+|W+\z\w");
+                .Matches(@"[w+]+|[\w+/\w+]+\w");
         }
     }
 }

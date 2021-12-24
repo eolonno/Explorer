@@ -8,7 +8,7 @@
         public GetDirectoryContentQueryValidator()
         {
             this.RuleFor(directoryInfo => directoryInfo.Path)
-                .Matches(@":\\\w+|\W+\w+|W+");
+                .Matches(@"[w+]+|[\w+/\w+]+\w");
         }
     }
 }

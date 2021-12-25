@@ -12,7 +12,7 @@ namespace Explorer.WebApi
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
                 .WriteTo.File(
-                    @"Logs\ExplorerWebAppLog-.log", rollingInterval: RollingInterval.Day)
+                    @"Logs\ExplorerWebApiLog-.log", rollingInterval: RollingInterval.Day)
                 .CreateLogger();
 
             CreateHostBuilder(args)

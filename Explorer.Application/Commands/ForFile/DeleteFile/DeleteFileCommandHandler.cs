@@ -7,9 +7,9 @@
     using MediatR;
 
     public class DeleteFileCommandHandler
-        : IRequestHandler<DeleteFileCommand>
+        : AsyncRequestHandler<DeleteFileCommand>
     {
-        public async Task<Unit> Handle(
+        protected override async Task Handle(
             DeleteFileCommand request, CancellationToken cancellationToken)
         {
             var path =
@@ -22,8 +22,6 @@
 
             await Task.Run(
                 () => File.Delete(path), cancellationToken);
-
-            return Unit.Value;
         }
     }
 }

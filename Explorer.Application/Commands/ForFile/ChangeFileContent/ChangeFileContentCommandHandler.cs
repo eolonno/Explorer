@@ -7,9 +7,9 @@
     using MediatR;
 
     public class ChangeFileContentCommandHandler
-        : IRequestHandler<ChangeFileContentCommand>
+        : AsyncRequestHandler<ChangeFileContentCommand>
     {
-        public async Task<Unit> Handle(
+        protected override async Task Handle(
             ChangeFileContentCommand request, CancellationToken cancellationToken)
         {
             var path =
@@ -22,8 +22,6 @@
 
             await File.WriteAllTextAsync(
                 path, request.NewContent, cancellationToken);
-
-            return Unit.Value;
         }
     }
 }

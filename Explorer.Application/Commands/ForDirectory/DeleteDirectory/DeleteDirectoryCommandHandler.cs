@@ -7,9 +7,9 @@
     using MediatR;
 
     public class DeleteDirectoryCommandHandler
-        : IRequestHandler<DeleteDirectoryCommand>
+        : AsyncRequestHandler<DeleteDirectoryCommand>
     {
-        public async Task<Unit> Handle(
+        protected override async Task Handle(
             DeleteDirectoryCommand request, CancellationToken cancellationToken)
         {
             var pathToDirectoryToDelete =
@@ -17,8 +17,6 @@
 
             await Task.Run(
                 () => Directory.Delete(pathToDirectoryToDelete), cancellationToken);
-
-            return Unit.Value;
         }
     }
 }

@@ -7,9 +7,9 @@
     using MediatR;
 
     public class AddNewFileCommandHandler
-        : IRequestHandler<AddNewFileCommand>
+        : AsyncRequestHandler<AddNewFileCommand>
     {
-        public async Task<Unit> Handle(
+        protected override async Task Handle(
             AddNewFileCommand request, CancellationToken cancellationToken)
         {
             var path =
@@ -25,8 +25,6 @@
                 await using var stream = File.CreateText(path);
                 await stream.WriteLineAsync(request.ContentToAdd);
             }
-
-            return Unit.Value;
         }
     }
 }

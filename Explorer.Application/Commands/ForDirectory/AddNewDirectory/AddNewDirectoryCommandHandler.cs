@@ -7,9 +7,9 @@
     using MediatR;
 
     public class AddNewDirectoryCommandHandler
-        : IRequestHandler<AddNewDirectoryCommand>
+        : AsyncRequestHandler<AddNewDirectoryCommand>
     {
-        public async Task<Unit> Handle(
+        protected override async Task Handle(
             AddNewDirectoryCommand request, CancellationToken cancellationToken)
         {
             var pathToNewDirectory =
@@ -17,8 +17,6 @@
 
             await Task.Run(
                 () => Directory.CreateDirectory(pathToNewDirectory), cancellationToken);
-
-            return Unit.Value;
         }
     }
 }

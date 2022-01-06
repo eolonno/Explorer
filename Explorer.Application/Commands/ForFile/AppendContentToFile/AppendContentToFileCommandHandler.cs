@@ -7,9 +7,9 @@
     using MediatR;
 
     public class AppendContentToFileCommandHandler
-        : IRequestHandler<AppendContentToFileCommand>
+        : AsyncRequestHandler<AppendContentToFileCommand>
     {
-        public async Task<Unit> Handle(
+        protected override async Task Handle(
             AppendContentToFileCommand request, CancellationToken cancellationToken)
         {
             var path =
@@ -22,8 +22,6 @@
 
             await File.AppendAllTextAsync(
                 path, request.ContentToAdd, cancellationToken);
-
-            return Unit.Value;
         }
     }
 }

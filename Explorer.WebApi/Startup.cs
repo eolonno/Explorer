@@ -3,6 +3,7 @@ namespace Explorer.WebApi
     using System.Reflection;
     using Explorer.Application;
     using Explorer.Application.Mappings;
+    using Explorer.WebApi.Middleware.CustomExceptionHandler;
     using Explorer.WebApi.Middleware.ServerLoadMonitoring;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -43,6 +44,7 @@ namespace Explorer.WebApi
             }
 
             app.UseServerLoadMonitoring(this.Configuration);
+            app.UseCustomExceptionHandler();
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();

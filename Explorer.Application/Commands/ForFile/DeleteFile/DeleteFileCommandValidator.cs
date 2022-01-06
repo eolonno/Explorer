@@ -8,7 +8,7 @@
         public DeleteFileCommandValidator()
         {
             this.RuleFor(fileInfo => fileInfo.Path)
-                .Matches(@"[w+]+|[\w+/\w+]+\w");
+                .Matches(Properties.Resources.FilePathRegex);
         }
     }
 }

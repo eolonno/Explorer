@@ -8,7 +8,7 @@
         public AppendContentToFileCommandValidator()
         {
             this.RuleFor(fileInfo => fileInfo.Path)
-                .Matches(@"[w+]+|[\w+/\w+]+\w");
+                .Matches(Properties.Resources.FilePathRegex);
             this.RuleFor(fileInfo => fileInfo.ContentToAdd)
                 .NotEmpty();
         }

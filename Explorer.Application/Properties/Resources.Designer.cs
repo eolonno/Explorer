@@ -68,5 +68,23 @@ namespace Explorer.Application.Properties {
                 return ResourceManager.GetString("BaseDirectory", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на ^[w+]+|[\w+/\w+]+[^/]$.
+        /// </summary>
+        public static string DirectoryRegex {
+            get {
+                return ResourceManager.GetString("DirectoryRegex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на [w+]+|[\w+/\w+]+\w*\.\w+$.
+        /// </summary>
+        public static string FilePathRegex {
+            get {
+                return ResourceManager.GetString("FilePathRegex", resourceCulture);
+            }
+        }
     }
 }

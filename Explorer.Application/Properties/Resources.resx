@@ -120,4 +120,10 @@
   <data name="BaseDirectory" xml:space="preserve">
     <value>D:\ExplorerMainDirectory\</value>
   </data>
+  <data name="DirectoryRegex" xml:space="preserve">
+    <value>^[w+]+|[\w+/\w+]+[^/]$</value>
+  </data>
+  <data name="FilePathRegex" xml:space="preserve">
+    <value>[w+]+|[\w+/\w+]+\w*\.\w+$</value>
+  </data>
 </root>

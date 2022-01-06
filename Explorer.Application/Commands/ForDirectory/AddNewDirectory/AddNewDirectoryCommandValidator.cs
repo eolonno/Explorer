@@ -8,7 +8,7 @@
         public AddNewDirectoryCommandValidator()
         {
             this.RuleFor(directory => directory.DirectoryToAddTo)
-                .Matches(@"[w+]+|[\w+/\w+]+\w");
+                .Matches(Properties.Resources.DirectoryRegex);
         }
     }
 }

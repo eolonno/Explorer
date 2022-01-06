@@ -3,6 +3,7 @@
     using System.IO;
     using System.Threading;
     using System.Threading.Tasks;
+    using Explorer.Application.Utils;
     using MediatR;
 
     public class AddNewDirectoryCommandHandler
@@ -12,7 +13,7 @@
             AddNewDirectoryCommand request, CancellationToken cancellationToken)
         {
             var pathToNewDirectory =
-                Properties.Resources.BaseDirectory + request.DirectoryToAddTo.Replace("%2F", @"\");
+                PathUtils.MapPath(PathUtils.ParsePath(request.DirectoryToAddTo));
 
             await Task.Run(
                 () => Directory.CreateDirectory(pathToNewDirectory), cancellationToken);

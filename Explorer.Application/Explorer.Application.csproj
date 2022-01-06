@@ -26,6 +26,7 @@
     <Folder Include="Commands\ForFile\AppendContentToFile\" />
     <Folder Include="Queries\ForFile\GetFileContent\" />
     <Folder Include="Mappings\" />
+    <Folder Include="Utils\" />
   </ItemGroup>
 
   <ItemGroup>

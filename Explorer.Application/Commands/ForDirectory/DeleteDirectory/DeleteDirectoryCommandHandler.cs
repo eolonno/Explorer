@@ -3,6 +3,7 @@
     using System.IO;
     using System.Threading;
     using System.Threading.Tasks;
+    using Explorer.Application.Utils;
     using MediatR;
 
     public class DeleteDirectoryCommandHandler
@@ -12,7 +13,7 @@
             DeleteDirectoryCommand request, CancellationToken cancellationToken)
         {
             var pathToDirectoryToDelete =
-                Properties.Resources.BaseDirectory + request.DirectoryToDelete.Replace("%2F", @"\");
+                PathUtils.MapPath(PathUtils.ParsePath(request.DirectoryToDelete));
 
             await Task.Run(
                 () => Directory.Delete(pathToDirectoryToDelete), cancellationToken);

@@ -4,6 +4,7 @@
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using Explorer.Application.Utils;
     using MediatR;
 
     public class GetDirectoryContentQueryHandler
@@ -13,7 +14,7 @@
             GetDirectoryContentQuery request, CancellationToken cancellationToken)
         {
             var path =
-                Properties.Resources.BaseDirectory + request.Path.Replace("%2F", @"\");
+                PathUtils.MapPath(PathUtils.ParsePath(request.Path));
 
             if (!Directory.Exists(path))
             {

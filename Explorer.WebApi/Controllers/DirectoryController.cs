@@ -19,7 +19,7 @@
         }
 
         [HttpGet]
-        [Route("{path}")]
+        [Route("{*path}")]
         public async Task<ActionResult<GetDirectoryContentQueryVm>> Get(
             [FromRoute] string path)
         {
@@ -30,7 +30,7 @@
         }
 
         [HttpPost]
-        [Route("{path}")]
+        [Route("{*path}")]
         public async Task<ActionResult> Create(
             [FromRoute] string path)
         {
@@ -45,7 +45,7 @@
         }
 
         [HttpDelete]
-        [Route("{path}")]
+        [Route("{*path}")]
         public async Task<ActionResult> Delete(
             [FromRoute] string path)
         {

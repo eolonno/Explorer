@@ -3,7 +3,6 @@ namespace Explorer.WebApi
     using System.Reflection;
     using Explorer.Application;
     using Explorer.Application.Mappings;
-    using Explorer.WebApi.Middleware.FluentPath;
     using Explorer.WebApi.Middleware.ServerLoadMonitoring;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -43,7 +42,6 @@ namespace Explorer.WebApi
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Explorer.WebApi v1"));
             }
 
-            app.UseFluentPath("Directory");
             app.UseServerLoadMonitoring(this.Configuration);
             app.UseHttpsRedirection();
             app.UseRouting();

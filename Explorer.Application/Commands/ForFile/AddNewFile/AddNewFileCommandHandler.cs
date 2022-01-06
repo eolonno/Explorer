@@ -3,6 +3,7 @@
     using System.IO;
     using System.Threading;
     using System.Threading.Tasks;
+    using Explorer.Application.Utils;
     using MediatR;
 
     public class AddNewFileCommandHandler
@@ -12,27 +13,16 @@
             AddNewFileCommand request, CancellationToken cancellationToken)
         {
             var path =
-                Properties.Resources.BaseDirectory
-                + request.Path.Replace("%2F", @"\");
-
-            var pathToFile =
-                path
-                + @"\"
-                + request.FileName;
-
-            if (!Directory.Exists(path))
-            {
-                throw new DirectoryNotFoundException();
-            }
+                PathUtils.MapPath(PathUtils.ParsePath(request.Path));
 
             if (string.IsNullOrEmpty(request.ContentToAdd))
             {
                 await Task.Run(
-                    () => File.Create(pathToFile), cancellationToken);
+                    () => File.Create(path), cancellationToken);
             }
             else
             {
-                await using var stream = File.CreateText(pathToFile);
+                await using var stream = File.CreateText(path);
                 await stream.WriteLineAsync(request.ContentToAdd);
             }
 

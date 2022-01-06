@@ -5,7 +5,5 @@
     public class DeleteFileCommand : IRequest
     {
         public string Path { get; set; }
-
-        public string FileName { get; set; }
     }
 }

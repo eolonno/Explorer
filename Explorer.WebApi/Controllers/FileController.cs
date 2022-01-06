@@ -20,31 +20,11 @@
             this.mapper = mapper;
 
         [HttpGet]
-        [Route("{path}/{fileName}")]
+        [Route("{*path}")]
         public async Task<ActionResult<GetFileContentQueryVm>> Get(
-            [FromRoute] string path, [FromRoute] string fileName)
+            [FromRoute] string path)
         {
-            var query = new GetFileContentQuery
-            {
-                FileName = fileName,
-                Path = path,
-            };
-
-            var vm = await this.Mediator.Send(query);
-
-            return this.Ok(vm);
-        }
-
-        [HttpGet]
-        [Route("ExplorerMainDirectory/{fileName}")]
-        public async Task<ActionResult<GetFileContentQueryVm>> Get(
-            [FromRoute] string fileName)
-        {
-            var query = new GetFileContentQuery
-            {
-                FileName = fileName,
-                Path = string.Empty,
-            };
+            var query = new GetFileContentQuery { Path = path };
 
             var vm = await this.Mediator.Send(query);
 
@@ -52,14 +32,13 @@
         }
 
         [HttpPost]
-        [Route("{path}/{fileName}")]
+        [Route("{*path}")]
         public async Task<ActionResult> Create(
-            [FromRoute] string path, [FromRoute] string fileName, [FromBody] string contentToAdd)
+            [FromRoute] string path, [FromBody] string contentToAdd)
         {
             var command = new AddNewFileCommand
             {
                 Path = path,
-                FileName = fileName,
                 ContentToAdd = contentToAdd,
             };
 
@@ -69,15 +48,11 @@
         }
 
         [HttpDelete]
-        [Route("{path}/{fileName}")]
+        [Route("{*path}")]
         public async Task<ActionResult> Delete(
-            [FromRoute] string path, [FromRoute] string fileName)
+            [FromRoute] string path)
         {
-            var command = new DeleteFileCommand
-            {
-                Path = path,
-                FileName = fileName,
-            };
+            var command = new DeleteFileCommand { Path = path };
 
             await this.Mediator.Send(command);
 
@@ -85,17 +60,15 @@
         }
 
         [HttpPut]
-        [Route("{path}/{fileName}")]
+        [Route("{isRewrite}/{*path}")]
         public async Task<ActionResult> Edit(
-            [FromRoute] bool isRewrite,
             [FromRoute] string path,
-            [FromRoute] string fileName,
+            [FromRoute] bool isRewrite,
             [FromBody] string newContent)
         {
             var fileInfoDto = new EditFileContentDto
             {
                 Path = path,
-                FileName = fileName,
                 NewContent = newContent,
             };
 

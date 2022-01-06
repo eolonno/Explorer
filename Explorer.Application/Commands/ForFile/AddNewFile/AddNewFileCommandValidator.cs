@@ -9,8 +9,6 @@
         {
             this.RuleFor(newFileInfo => newFileInfo.Path)
                 .Matches(@"[w+]+|[\w+/\w+]+\w");
-            this.RuleFor(newFileInfo => newFileInfo.FileName)
-                .Matches(@"\w*\.\w+");
         }
     }
 }

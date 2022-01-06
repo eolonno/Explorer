@@ -3,6 +3,7 @@
     using System.IO;
     using System.Threading;
     using System.Threading.Tasks;
+    using Explorer.Application.Utils;
     using MediatR;
 
     public class ChangeFileContentCommandHandler
@@ -12,10 +13,7 @@
             ChangeFileContentCommand request, CancellationToken cancellationToken)
         {
             var path =
-                Properties.Resources.BaseDirectory
-                + request.Path.Replace("%2F", @"\")
-                + @"\"
-                + request.FileName;
+                PathUtils.MapPath(PathUtils.ParsePath(request.Path));
 
             if (!File.Exists(path))
             {

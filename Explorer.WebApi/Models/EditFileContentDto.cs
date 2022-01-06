@@ -11,8 +11,6 @@
     {
         public string Path { get; set; }
 
-        public string FileName { get; set; }
-
         public string NewContent { get; set; }
 
         public void Mapping(Profile profile)
@@ -23,21 +21,14 @@
                     opt => opt.MapFrom(dto => dto.NewContent))
                 .ForMember(
                     command => command.Path,
-                    opt => opt.MapFrom(dto => dto.Path))
-                .ForMember(
-                    command => command.FileName,
-                    opt => opt.MapFrom(dto => dto.FileName));
-
+                    opt => opt.MapFrom(dto => dto.Path));
             profile.CreateMap<EditFileContentDto, ChangeFileContentCommand>()
                 .ForMember(
                     command => command.NewContent,
                     opt => opt.MapFrom(dto => dto.NewContent))
                 .ForMember(
                     command => command.Path,
-                    opt => opt.MapFrom(dto => dto.Path))
-                .ForMember(
-                    command => command.FileName,
-                    opt => opt.MapFrom(dto => dto.FileName));
+                    opt => opt.MapFrom(dto => dto.Path));
         }
     }
 }
